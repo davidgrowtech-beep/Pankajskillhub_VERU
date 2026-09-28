@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Learn with Pankaj — Trading Education on Telegram</title>
+<meta name="description" content="A free Telegram channel that teaches trading as a skill — chart-reading, structure, and discipline. No signals to blindly copy.">
+<!-- Lightweight inline favicon (replace with your own PNG if you like) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230A0E13'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23D9B876' font-family='Georgia'%3EP%3C/text%3E%3C/svg%3E">
+
+<!-- META PIXEL -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1792719455195011');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1792719455195011&ev=PageView&noscript=1"
+/></noscript>
+
+<style>
+  :root{
+    --ink:#0A0E13; --ink-2:#10151B; --paper:#F6F1E7;
+    --bronze:#B98D42; --bronze-light:#D9B876;
+    --text-dim:#9FA6AC; --hair:rgba(244,239,230,0.12);
+    --radius:10px; --pad:20px;
+    --a1:#7C3AED; --a1-rgb:124,58,237;
+    --a2:#06B6D4; --a2-rgb:6,182,212;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--ink-2); color:var(--paper);
+    font-family:Georgia,'Times New Roman',serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden; padding-bottom:78px;
+  }
+  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans Devanagari',Helvetica,Arial,sans-serif;}
+  .hi{font-family:'Noto Sans Devanagari','Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  :focus-visible{outline:2px solid var(--a1); outline-offset:3px;}
+  .wrap{max-width:480px; margin:0 auto; padding:0 var(--pad);}
+
+  .page{
+    max-width:480px; margin:0 auto; background:var(--ink);
+    min-height:100vh; box-shadow:0 0 60px rgba(0,0,0,0.5);
+    position:relative; overflow:hidden; isolation:isolate;
+  }
+  .blob{position:absolute; border-radius:50%; filter:blur(60px); opacity:0.32; z-index:0; pointer-events:none;}
+  .blob-a{width:260px;height:260px;top:-90px;left:-70px;background:var(--a1);animation:blobFloatA 9s ease-in-out infinite;}
+  .blob-b{width:220px;height:220px;top:280px;right:-90px;background:var(--a2);animation:blobFloatB 11s ease-in-out infinite;}
+  .blob-c{width:200px;height:200px;bottom:60px;left:-60px;background:var(--a1);opacity:0.22;animation:blobFloatA 13s ease-in-out infinite reverse;}
+  @keyframes blobFloatA{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(18px,26px) scale(1.12);}}
+  @keyframes blobFloatB{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-16px,-22px) scale(1.1);}}
+  .page > *:not(.blob){position:relative; z-index:1;}
+
+  header{padding:18px var(--pad) 16px; display:flex; align-items:center; gap:11px; border-bottom:1px solid var(--hair);}
+  header img{
+    width:46px; height:46px; border-radius:50%; object-fit:cover;
+    border:1.5px solid var(--a1); box-shadow:0 0 0 3px rgba(var(--a1-rgb),0.18); flex-shrink:0;
+  }
+  header .name{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:14.5px; letter-spacing:0.01em;}
+  header .name b{color:var(--bronze-light); font-weight:600; display:block; font-size:15.5px; font-family:Georgia,serif;}
+  header .name span{color:var(--text-dim); font-size:12px;}
+
+  .hero{padding:38px var(--pad) 30px;}
+  .eyebrow{
+    font-family:'Courier New',monospace; font-size:11.5px;
+    background:linear-gradient(90deg,var(--a1),var(--a2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px;
+    display:flex; align-items:center; gap:8px; font-weight:700;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; border-radius:50%; background:var(--a1);
+    box-shadow:0 0 0 4px rgba(var(--a1-rgb),0.2); flex-shrink:0; animation:dotPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(var(--a1-rgb),0.55);}50%{box-shadow:0 0 0 6px rgba(var(--a1-rgb),0);}}
+  h1{font-size:clamp(28px,8vw,34px); line-height:1.16; font-weight:400; letter-spacing:-0.01em; margin-bottom:8px;}
+  h1 em{font-style:italic; background:linear-gradient(90deg,var(--a1),var(--a2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hi-line{font-size:16px; color:var(--bronze-light); display:block; margin-bottom:16px; font-style:normal;}
+  .hero-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:15px; line-height:1.6; color:var(--text-dim); margin-bottom:26px;}
+  .hero-sub .hi{display:block; font-size:13.5px; margin-top:6px;}
+
+  .btn-telegram{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    background:linear-gradient(135deg,var(--a1),var(--a2));
+    color:#0A0E13; font-weight:800; font-size:16px; padding:16px 22px;
+    border-radius:var(--radius); border:1px solid rgba(255,255,255,0.25);
+    width:100%; position:relative; overflow:hidden;
+    -webkit-tap-highlight-color:transparent;
+    box-shadow:0 0 0 0 rgba(var(--a1-rgb),0.5),0 8px 22px rgba(0,0,0,0.4);
+    animation:ctaGlow 1.7s ease-in-out infinite;
+  }
+  .btn-telegram::after{
+    content:''; position:absolute; top:0; left:-60%; width:35%; height:100%;
+    background:linear-gradient(115deg,transparent,rgba(255,255,255,0.65),transparent);
+    transform:skewX(-20deg); animation:ctaShine 2.6s ease-in-out infinite;
+  }
+  @keyframes ctaShine{0%{left:-60%;}55%{left:135%;}100%{left:135%;}}
+  @keyframes ctaGlow{
+    0%,100%{box-shadow:0 0 0 0 rgba(var(--a1-rgb),0.55),0 8px 22px rgba(0,0,0,0.4);}
+    50%{box-shadow:0 0 0 9px rgba(var(--a1-rgb),0),0 8px 22px rgba(0,0,0,0.4);}
+  }
+  .btn-telegram:active{transform:translateY(1px);}
+  .btn-telegram svg{width:19px; height:19px; flex-shrink:0;}
+  .hero-note{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:12px; color:var(--text-dim); text-align:center; margin-top:12px;}
+
+  .offer{padding:8px var(--pad) 34px;}
+  .offer h2{font-size:19px; font-weight:400; margin-bottom:4px;}
+  .offer h2 .hi{display:block; font-size:14px; color:var(--text-dim); margin-bottom:18px; font-weight:400;}
+  .offer-item{display:flex; gap:13px; padding:16px 0; border-top:1px solid var(--hair);}
+  .offer-item:last-child{border-bottom:1px solid var(--hair);}
+  .offer-num{
+    font-family:'Courier New',monospace;
+    background:linear-gradient(180deg,var(--a1),var(--a2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-size:13px; font-weight:700; flex-shrink:0; width:22px;
+  }
+  .offer-item h3{font-size:15.5px; font-weight:400; margin-bottom:4px;}
+  .offer-item p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13.5px; line-height:1.55; color:var(--text-dim);}
+  .offer-item p .hi{display:block; margin-top:3px; font-size:12.5px;}
+
+  .final-cta{padding:6px var(--pad) 40px; text-align:center;}
+  .final-cta h2{font-size:21px; font-weight:400; line-height:1.3; margin-bottom:4px;}
+  .final-cta h2 .hi{display:block; font-size:15.5px; color:var(--bronze-light); margin-bottom:10px;}
+  .final-cta .sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:13.5px; color:var(--text-dim); margin-bottom:20px;}
+  .final-cta .sub .hi{display:block; margin-top:4px;}
+  .disclaimer{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:11.5px; color:var(--text-dim); text-align:center; padding:0 var(--pad) 28px; line-height:1.5;}
+  .disclaimer .hi{display:block; margin-top:3px;}
+
+  footer{
+    border-top:1px solid var(--hair); padding:18px var(--pad);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:11.5px; color:var(--text-dim);
+    display:flex; flex-direction:column; gap:6px; text-align:center;
+  }
+  footer a{color:var(--text-dim); text-decoration:underline; text-underline-offset:2px;}
+
+  .sticky-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:60; max-width:480px; margin:0 auto;
+    padding:12px var(--pad) calc(12px + env(safe-area-inset-bottom));
+    background:rgba(10,14,19,0.88); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-top:1px solid var(--hair); border-left:1px solid var(--hair); border-right:1px solid var(--hair);
+  }
+  .sticky-cta .wrap{padding:0; max-width:480px;}
+  .ios-webview-banner{background:var(--bronze); color:var(--ink); font-size:13px; line-height:1.4; padding:10px 14px; text-align:center; position:relative; z-index:5;}
+  .ios-webview-banner b{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+<div class="blob blob-c"></div>
+
+<header>
+  <img src="pkj.jpeg" alt="Pankaj profile picture">
+  <div class="name">
+    <b>Learn with Pankaj Bhardwaj <br> Way 2 Labh</b>
+    <span>Trader &amp; educator</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow sans">🔥 Free Telegram Community · मुफ़्त टेलीग्राम कम्युनिटी</div>
+  <h1>Learn to read <em>charts</em>, not chase signals.</h1>
+  <span class="hi-line hi">चार्ट पढ़ना सीखें, सिग्नल का पीछा नहीं।</span>
+  <p class="hero-sub">Structured lessons on price action, structure, and risk — taught step by step, so the skill actually stays with you.
+    <span class="hi">प्राइस एक्शन, स्ट्रक्चर और रिस्क की क्रमबद्ध कक्षाएं — कदम दर कदम, ताकि यह हुनर आपके साथ बना रहे।</span>
+  </p>
+  <a href="https://t.me/+l2BMuX0L_6Q0ZDQ1" id="telegramBtnHero" class="btn-telegram sans" data-cta="hero">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+    Join on Telegram · टेलीग्राम पर जुड़ें
+  </a>
+  <p class="hero-note">Free to join · Leave anytime · No card needed &nbsp;|&nbsp; मुफ़्त जॉइन · कभी भी छोड़ें</p>
+</section>
+
+<section class="offer">
+  <h2>What you'll actually learn <span class="hi">आप वास्तव में क्या सीखेंगे</span></h2>
+  <div class="offer-item">
+    <div class="offer-num">01</div>
+    <div>
+      <h3>Chart-reading fundamentals</h3>
+      <p>Candles, structure, support &amp; resistance — the vocabulary before anything else makes sense.
+        <span class="hi">कैंडल, स्ट्रक्चर, सपोर्ट और रेसिस्टेंस — बाकी सब समझने से पहले की बुनियाद।</span>
+      </p>
+    </div>
+  </div>
+  <div class="offer-item">
+    <div class="offer-num">02</div>
+    <div>
+      <h3>Live setup breakdowns</h3>
+      <p>Real charts marked up with the reasoning explained, not just the outcome.
+        <span class="hi">असली चार्ट्स पर लाइव समझाइश — सिर्फ नतीजा नहीं, पूरी सोच।</span>
+      </p>
+    </div>
+  </div>
+  <div class="offer-item">
+    <div class="offer-num">03</div>
+    <div>
+      <h3>Risk &amp; journaling habits</h3>
+      <p>Position sizing and a simple journal habit — the unglamorous part that keeps you in the game.
+        <span class="hi">पोज़िशन साइज़िंग और जर्नल की आदत — वही हिस्सा जो आपको टिकाए रखता है।</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="join">
+  <h2>Start where you are. <span class="hi">जहाँ हैं, वहीं से शुरू करें।</span></h2>
+  <p class="sub">Free to join. Leave anytime. No signals to blindly copy — just lessons.
+    <span class="hi">मुफ़्त जॉइन। कभी भी छोड़ें। ब्लाइंडली कॉपी करने के लिए सिग्नल नहीं — सिर्फ सीख।</span>
+  </p>
+  <a href="https://t.me/+l2BMuX0L_6Q0ZDQ1" id="telegramBtnFinal" class="btn-telegram sans" data-cta="final">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+    Join on Telegram · टेलीग्राम पर जुड़ें
+  </a>
+</section>
+
+<p class="disclaimer">Educational content only — nothing shared here is a buy/sell recommendation. Trading involves risk of loss.
+  <span class="hi">केवल शैक्षिक सामग्री — यह कोई खरीद/बिक्री सलाह नहीं है। ट्रेडिंग में नुकसान का जोखिम है।</span>
+</p>
+
+<footer>
+  <span>© <span id="year"></span> Learn with Pankaj</span>
+  <a href="https://t.me/srsagency" target="_blank" rel="noopener">Ads by : SRS Marketing Agency</a>
+</footer>
+</div>
+
+<div class="sticky-cta">
+  <div class="wrap">
+    <a href="https://t.me/+l2BMuX0L_6Q0ZDQ1" id="telegramBtnSticky" class="btn-telegram sans" data-cta="sticky">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.05 3.66 17.9 19.42c-.24 1.06-.86 1.32-1.75.82l-4.82-3.55-2.33 2.24c-.26.26-.47.47-.96.47l.34-4.87 8.86-8-.01 0 8.9-8.03L2.9 12.6l-4.76-1.49c-1.04-.32-1.05-1.03.22-1.53l18.6-7.17c.86-.32 1.62.2 1.34 1.52Z"/></svg>
+      Join Free · मुफ़्त जॉइन करें
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     CONFIG — only edit TG_HASH (the part after t.me/+)
+     ============================================================ */
+  var TG_HASH = "n9N-z9jPd_NmNDE1";
+  var TELEGRAM_URL = "https://t.me/+" + TG_HASH;
+
+  var allBtns = document.querySelectorAll('#telegramBtnHero, #telegramBtnFinal, #telegramBtnSticky');
+
+  /* ---------- Environment ---------- */
+  var ua = navigator.userAgent || '';
+  var isFBIG    = /FBAN|FBAV|Instagram/i.test(ua);
+  var isAndroid = /Android/i.test(ua);
+  var isIOS     = /iPhone|iPad|iPod/i.test(ua);
+
+  /* Android FB/IG in-app browser: open the Telegram app directly (one hop).
+     If Telegram isn't installed, Android falls back to the normal t.me link. */
+  function buildHref(url){
+    if (isFBIG && isAndroid) {
+      return 'intent://join?invite=' + TG_HASH +
+        '#Intent;scheme=tg;package=org.telegram.messenger;' +
+        'S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+    }
+    return url;
+  }
+  allBtns.forEach(function(btn){ btn.setAttribute('href', buildHref(TELEGRAM_URL)); });
+
+  /* iOS FB/IG in-app browser: no reliable JS escape, so guide the visitor. */
+  if (isFBIG && isIOS) {
+    var banner = document.createElement('div');
+    banner.className = 'ios-webview-banner sans';
+    banner.innerHTML = 'Telegram yahan theek se nahi khulega — top-right mein <b>⋯</b> dabaakar <b>"Open in Safari"</b> chunein.';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Automation detection (gates the pixel event only) ---------- */
+  function automationDetected(){
+    try {
+      if (navigator.webdriver) return true;
+      if (/HeadlessChrome|Puppeteer|Selenium|PhantomJS/i.test(ua)) return true;
+      if (!isAndroid && !isIOS &&
+          navigator.plugins && navigator.plugins.length === 0 &&
+          navigator.languages && navigator.languages.length === 0) return true;
+      if (window.callPhantom || window._phantom || window.__nightmare) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  /* ============================================================
+     META PIXEL — Subscribe, once per real person per 24h
+     - No preventDefault / setTimeout: the real <a href> navigates
+       instantly so the OS can hand off to the Telegram app.
+     - localStorage (24h) + sessionStorage dedup
+     - Trusted click + no automation + dwell time + human interaction
+     ============================================================ */
+  var FIRED_KEY = 'lwg_subscribe_fired_v2';
+  var DEDUP_MS = 24 * 60 * 60 * 1000;
+  var MIN_DWELL_MS = 2000;
+  var pageLoadTime = Date.now();
+
+  function hasFiredRecently(){
+    try {
+      var t = parseInt(localStorage.getItem(FIRED_KEY), 10);
+      if (t && (Date.now() - t) < DEDUP_MS) return true;
+    } catch (e) {}
+    try { return sessionStorage.getItem(FIRED_KEY) === '1'; }
+    catch (e) { return false; }
+  }
+  function markFired(){
+    try { localStorage.setItem(FIRED_KEY, String(Date.now())); } catch (e) {}
+    try { sessionStorage.setItem(FIRED_KEY, '1'); } catch (e) {}
+  }
+
+  var hadHumanInteraction = false;
+  function markHuman(){ hadHumanInteraction = true; }
+  ['pointermove', 'touchstart', 'scroll', 'keydown', 'wheel'].forEach(function(evt){
+    window.addEventListener(evt, markHuman, { passive: true, once: true });
+  });
+
+  function genuineClickId(){
+    try { return 'lwg_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10); }
+    catch (e) { return 'lwg_' + Date.now(); }
+  }
+
+  function handleTelegramClick(e){
+    var btn = e.currentTarget;
+    if (e.isTrusted === false || automationDetected()) return;
+
+    var dwellOk = (Date.now() - pageLoadTime) >= MIN_DWELL_MS;
+    var looksGenuine = dwellOk && hadHumanInteraction && document.visibilityState !== 'hidden';
+
+    if (looksGenuine && !hasFiredRecently() && typeof fbq === 'function') {
+      fbq('track', 'Subscribe', {
+        content_name: 'Learn with Pankaj - Telegram Channel',
+        cta_location: btn.getAttribute('data-cta') || 'unknown'
+      }, { eventID: genuineClickId() });
+      markFired();
+    }
+  }
+
+  allBtns.forEach(function(btn){ btn.addEventListener('click', handleTelegramClick); });
+})();
+</script>
+
+<!-- DECORATIVE ONLY: random accent palette per load -->
+<script>
+(function(){
+  "use strict";
+  var PALETTES = [
+    { a1:'#7C3AED', a1rgb:'124,58,237', a2:'#06B6D4', a2rgb:'6,182,212' },
+    { a1:'#F59E0B', a1rgb:'245,158,11', a2:'#EC4899', a2rgb:'236,72,153' },
+    { a1:'#10B981', a1rgb:'16,185,129', a2:'#84CC16', a2rgb:'132,204,22' },
+    { a1:'#3B82F6', a1rgb:'59,130,246', a2:'#A855F7', a2rgb:'168,85,247' },
+    { a1:'#EF4444', a1rgb:'239,68,68',  a2:'#F97316', a2rgb:'249,115,22' },
+    { a1:'#14B8A6', a1rgb:'20,184,166', a2:'#EAB308', a2rgb:'234,179,8' },
+    { a1:'#D946EF', a1rgb:'217,70,239', a2:'#6366F1', a2rgb:'99,102,241' },
+    { a1:'#DC2626', a1rgb:'220,38,38',  a2:'#D9B876', a2rgb:'217,184,118' }
+  ];
+  try {
+    var p = PALETTES[Math.floor(Math.random() * PALETTES.length)];
+    var root = document.documentElement.style;
+    root.setProperty('--a1', p.a1);
+    root.setProperty('--a1-rgb', p.a1rgb);
+    root.setProperty('--a2', p.a2);
+    root.setProperty('--a2-rgb', p.a2rgb);
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>
