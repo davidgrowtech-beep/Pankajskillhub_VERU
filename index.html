@@ -125,7 +125,7 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:16px 0 22px}
     pageViewDelayMs:3000,      // PageView only after 3s visible + real interaction
     passiveReaderDelayMs:8000, // or 8s of visible reading
     minClickTimeMs:2000,       // clicks before 2s are ignored
-    leadWindowMs:6000          // Lead only if the page really goes to background within 6s of the click
+    leadWindowMs:10000         // Lead only if the page really goes to background within 10s of the click
   };
   var t0 = Date.now(), human = false, visibleMs = 0, lastVis = document.hidden ? 0 : Date.now();
   var pvSent = false, leadSent = false, pending = null, chosen = '';
@@ -196,8 +196,9 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:16px 0 22px}
       opts.scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
-    if (Date.now() - t0 < CONFIG.minClickTimeMs || !human){ e.preventDefault(); return; }
-    if (ss(KEY_LD) !== '1' && !leadSent) pending = Date.now();
+    // Real user is never blocked from reaching Telegram; filtering applies only to the Lead event
+    var qualified = !(Date.now() - t0 < CONFIG.minClickTimeMs || !human);
+    if (qualified && ss(KEY_LD) !== '1' && !leadSent) pending = Date.now();
   }, false);
 
   // Lead is sent only when the page actually leaves for Telegram (app switch / tab hidden) shortly after a valid tap.
@@ -212,6 +213,7 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:16px 0 22px}
   }
   function onHidden(){ sendLead(); }
   window.addEventListener('pagehide', sendLead);
+  window.addEventListener('blur', function(){ setTimeout(sendLead,50); });
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1792719455195011&ev=PageView&noscript=1"/></noscript>
